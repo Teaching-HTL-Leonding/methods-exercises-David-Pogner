@@ -1,4 +1,12 @@
-﻿string selection;
+﻿int min = 0;
+int max = 0;
+int counter0 = 0;
+int counter1 = 0;
+int counter2 = 0;
+int enternumber = 0;
+bool MinMaxValue = false;
+string selection;
+
 do
 {
     Console.Clear();
@@ -25,6 +33,14 @@ do
             case "0": RunCalculateCircleArea(); break;
             // TODO: Add additional cases for other methods here
 
+            case "1": MaxMin(); Gibaus(); break;
+            case "2": ToFizzBuzz(); break;
+            case "3": Fibonacci(); break;
+            case "4": NumberRange(); CheckIfValid(min, max); break;
+            case "5": Chuxel(); break;
+            case "6 ": TrippleChuxel(); break;
+            case "7": CheckForNumber(); break;
+            case "8": CheckForString(); break;
             default: break;
         }
 
@@ -48,4 +64,250 @@ double CalculateCircleArea(double radius)
 {
     return radius * radius * Math.PI;
 }
+#endregion
+
+
+#region Level1
+
+void MaxMin()
+{
+    Console.Write("Enter your min Value : ");
+    min = int.Parse(Console.ReadLine()!);
+    Console.Write("Enter you max Value : ");
+    max = int.Parse(Console.ReadLine()!);
+}
+
+int RandomInRange(int max, int min)
+{
+    return Random.Shared.Next(min, max + 1);
+}
+
+
+void Gibaus()
+{
+    for (int i = 0; i < 1000000; i++)
+    {
+        int RandomNUmber = RandomInRange(max, min);
+
+
+        if (RandomNUmber == 0) { counter0++; }
+        if (RandomNUmber == 1) { counter1++; }
+        if (RandomNUmber == 2) { counter2++; }
+    }
+    System.Console.WriteLine($"You have {counter0} 0; you have {counter1} 1; you have {counter2} 2 ");
+}
+
+#endregion
+
+
+
+#region Level2
+int Value = 0;
+void ToFizzBuzz()
+{
+    Console.WriteLine("Enter a Value: ");
+    Value = int.Parse(Console.ReadLine()!);
+    string result = CheckTOFizzBuzz(Value);
+    System.Console.WriteLine($"You have a {result}");
+
+}
+
+string CheckTOFizzBuzz(int Value)
+{
+    if (Value % 3 == 0 && Value % 5 == 0)
+    {
+        return "FizzBuzz";
+    }
+    else if (Value % 3 == 0)
+    {
+        return "Fizz";
+    }
+    else if (Value % 5 == 0)
+    {
+        return "Buzz";
+    }
+    else
+        return Value.ToString();
+}
+
+#endregion
+
+
+#region Level 3
+
+int index = 0;
+void Fibonacci()
+{
+    System.Console.Write("Enter the number");
+    index = int.Parse(Console.ReadLine()!);
+    int result = FibonacciByIndex(index);
+    System.Console.WriteLine($"Your index is {result}");
+}
+
+int FibonacciByIndex(int index)
+{
+    if (index == 0)
+        return 0;
+    else if (index == 1)
+        return 1;
+    else
+        return FibonacciByIndex(index - 1) + FibonacciByIndex(index - 2);
+
+}
+Fibonacci();
+
+#endregion
+
+
+#region  Level 4
+
+void NumberRange()
+{
+    min = 0;
+    max = 0;
+    Console.Write("Enter your min Value : ");
+    min = int.Parse(Console.ReadLine()!);
+    Console.Write("Enter you max Value : ");
+    max = int.Parse(Console.ReadLine()!);
+}
+void CheckIfValid(int min, int max)
+{
+    MinMaxValue = false;
+    do
+    {
+        System.Console.WriteLine($"PLease enter a number between {min} and {max}");
+        enternumber = int.Parse(Console.ReadLine()!);
+        if (enternumber > max) { System.Console.WriteLine("Your number is to big"); }
+        else if (enternumber < min) { System.Console.WriteLine("Your number is to little"); }
+        if (enternumber > min && enternumber < max) { System.Console.WriteLine("Vaild input. Thank you for your time."); MinMaxValue = true; }
+    } 
+    while (MinMaxValue == false);
+}
+
+#endregion
+
+
+#region  Level 5
+void Chuxel()
+{
+    System.Console.Write("Enter a text input: ");
+    string input = System.Console.ReadLine()!;
+    if (!isPladirome(input))
+    {
+        System.Console.WriteLine("The input is not a Palindrome");
+    }
+    if (isPladirome(input))
+    {
+        System.Console.WriteLine("The input is  a Palindrome");
+    }
+    bool isPladirome(string text)
+    {
+        for (int i = 0; i < text.Length / 2; i++)
+        {
+            if (text[i] != text[text.Length - i - 1])
+            {
+                return false;
+            }
+
+        }
+        return true;
+    }
+}
+
+#endregion
+
+
+#region Level 6
+
+void TrippleChuxel()
+{
+    System.Console.Write("Enter a text input: ");
+    string input = System.Console.ReadLine()!.ToLower();
+    if (!isPalindrome(input))
+    {
+        System.Console.WriteLine("The input is not a Palindrome");
+    }
+    if (isPalindrome(input))
+    {
+        System.Console.WriteLine("The input is a Palindrome");
+    }
+
+
+
+    bool isPalindrome(string text)
+    {
+        if (text.Length == 0) { return false; }
+        text = text
+         .Replace("", "")
+         .Replace(",", "")
+         .Replace(".", "")
+         .ToLower();
+
+        for (int i = 0; i < text.Length / 2; i++)
+        {
+            if (text[i] != text[text.Length - i - 1])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+#endregion
+
+
+
+#region Level 7
+
+void CheckForNumber()
+{
+    Console.Write("Enter a number: ");
+    double number = double.Parse(Console.ReadLine()!);
+    string result = BarCounter(number);
+    Console.WriteLine($"The Bar is: {result} full");
+}
+
+string BarCounter(double number)
+{
+    if (number > 0.0 && number < 0.1) { return ".........."; }
+    if (number >= 0.1 && number < 0.2) { return "o........."; }
+    if (number >= 0.2 && number < 0.3) { return "oo........"; }
+    if (number >= 0.3 && number < 0.4) { return "ooo......."; }
+    if (number >= 0.4 && number < 0.5) { return "oooo......"; }
+    if (number >= 0.5 && number < 0.6) { return "ooooo....."; }
+    if (number >= 0.6 && number < 0.7) { return "oooooo...."; }
+    if (number >= 0.7 && number < 0.8) { return "ooooooo..."; }
+    if (number >= 0.8 && number < 0.9) { return "oooooooo.."; }
+    if (number >= 0.9 && number < 1.0) { return "ooooooooo."; }
+    if (number == 1) { return "oooooooooo"; }
+    else { return ".........."; }
+}
+
+#endregion
+
+
+#region Level 8
+void CheckForString()
+{
+    Console.Write("Please enter a Smiley Face: ");
+    string text = (Console.ReadLine()!);
+    int result = CountSmilingFaces(text);
+    Console.WriteLine($"You have {result} Smiley Faces");
+}
+int CountSmilingFaces(string text)
+{
+    int count = 0;
+    for (int i = 0; i < text.Length - 1; i++)
+    {
+        if (text[i] == ':' && text[i + 1] == '-')
+        {
+            if (i < text.Length - 2 && text[i + 2] == ')')
+            {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
 #endregion
